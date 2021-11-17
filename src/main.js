@@ -1,4 +1,6 @@
-let canvas, ctx; //cria o canvas e o contexto (ctx) no escopo global
+import Circle from "./circle"
+
+let canvas, ctx, c1; //cria o canvas e o contexto (ctx) no escopo global
 // let x = 0;
 
 const mouseCoords = { x: 0, y: 0 };
@@ -16,21 +18,11 @@ const onResize = () => {
 
 const draw = () => {
   ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-  ctx.strokeStyle = "#ffffff";
-
-  ctx.beginPath();
-  ctx.arc(mouseCoords.x, mouseCoords.y, 50, 0, Math.PI * 2);
-  ctx.stroke();
-
-  // ctx.fillStyle = '#00ff00'
-  // ctx.fillRect(0, 0, 150, 100) //(x, y, width, height)
-  // ctx.strokeStyle = '#0000ff'
-  // ctx.strokeRect(90, 55, 100, 100)
+  c1.draw(ctx);
 };
 
 const update = () => {
-  // x++;
+  c1.setPosition(mouseCoords)
 };
 
 const step = () => {
@@ -48,6 +40,9 @@ const init = () => {
   window.addEventListener("mousemove", onMouseMove);
   window.addEventListener("resize", onResize); //redimensiona
   onResize();
+
+  c1 = new Circle({x: 0, y: 0}, 40)
+
   step();
 };
 
