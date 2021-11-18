@@ -1,7 +1,8 @@
 import Circle from "./circle"
 
-let canvas, ctx, c1; //cria o canvas e o contexto (ctx) no escopo global
-// let x = 0;
+let canvas, ctx, circle1; //cria o canvas e o contexto (ctx) no escopo global
+const NUM_CIRCLES = 40
+const objects = []
 
 const mouseCoords = { x: 0, y: 0 };
 
@@ -18,11 +19,14 @@ const onResize = () => {
 
 const draw = () => {
   ctx.fillRect(0, 0, canvas.width, canvas.height)
-  c1.draw(ctx);
+  circle1.draw(ctx);
+  objects.forEach(obj => {
+    obj.draw(ctx);
+  })
 };
 
 const update = () => {
-  c1.setPosition(mouseCoords)
+  circle1.setPosition(mouseCoords)
 };
 
 const step = () => {
@@ -41,7 +45,12 @@ const init = () => {
   window.addEventListener("resize", onResize); //redimensiona
   onResize();
 
-  c1 = new Circle({x: 0, y: 0}, 40)
+  circle1 = new Circle({x: 0, y: 0}, 40)
+  for(let i = 0; i < NUM_CIRCLES; i++){
+    const circle = new Circle();
+    circle.reset(canvas.width, canvas.height)
+    objects.push(circle)
+  }
 
   step();
 };
