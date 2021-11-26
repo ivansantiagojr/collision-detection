@@ -1,7 +1,7 @@
 import Circle from "./circle"
 
 let canvas, ctx, circle1; //cria o canvas e o contexto (ctx) no escopo global
-const NUM_CIRCLES = 40
+const NUM_CIRCLES = 30
 const objects = []
 
 const mouseCoords = { x: 0, y: 0 };
@@ -27,6 +27,15 @@ const draw = () => {
 
 const update = () => {
   circle1.setPosition(mouseCoords)
+  circle1.update()
+
+  objects.forEach(obj => {
+    obj.update()
+    if (obj.overlaps(circle1)){
+      circle1.setOverlapping(true)
+      obj.setOverlapping(true)
+    }
+  })
 };
 
 const step = () => {
